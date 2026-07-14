@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Project - 함께하는 기부</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">2026 Project</div>
+                <ul class="nav-links">
+                    <li><a href="#about">소개</a></li>
+                    <li><a href="#donation">기부</a></li>
+                    <li><a href="#impact">임팩트</a></li>
+                    <li><a href="#contact">연락처</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 히어로 섹션 -->
+        <section class="hero">
+            <div class="container">
+                <h1>함께 만드는 더 나은 내일</h1>
+                <p>당신의 작은 나눔이 큰 변화를 만듭니다</p>
+                <a href="#donation" class="cta-button">지금 기부하기</a>
+            </div>
+        </section>
+
+        <!-- 소개 섹션 -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2>우리의 미션</h2>
+                <p>2026 Project는 사회의 어려운 이웃들을 돕고, 지속 가능한 발전을 추구하는 기관입니다. 
+                   여러분의 기부금은 교육, 보건, 환경 보호 등 다양한 분야에 사용됩니다.</p>
+            </div>
+        </section>
+
+        <!-- 기부 섹션 -->
+        <section id="donation" class="donation">
+            <div class="container">
+                <h2>기부하기</h2>
+                <form class="donation-form" id="donationForm">
+                    <div class="form-group">
+                        <label for="name">이름</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">기부 금액 (원)</label>
+                        <div class="amount-selector">
+                            <button type="button" class="amount-btn" data-amount="10000">10,000원</button>
+                            <button type="button" class="amount-btn" data-amount="50000">50,000원</button>
+                            <button type="button" class="amount-btn" data-amount="100000">100,000원</button>
+                            <input type="number" id="amount" name="amount" placeholder="직접 입력" min="1000">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">메시지 (선택사항)</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">기부 신청</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 임팩트 섹션 -->
+        <section id="impact" class="impact">
+            <div class="container">
+                <h2>우리의 임팩트</h2>
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <div class="impact-number">5,000+</div>
+                        <div class="impact-text">도움을 받은 사람들</div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-number">50+</div>
+                        <div class="impact-text">진행 중인 프로젝트</div>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-number">1억+</div>
+                        <div class="impact-text">기부금 누적액</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 연락처 섹션 -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>연락처</h2>
+                <div class="contact-info">
+                    <p>📧 이메일: info@2026project.org</p>
+                    <p>📱 전화: 02-1234-5678</p>
+                    <p>📍 주소: 서울시 강남구 테헤란로 123</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Project. 모든 권리 보유.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
