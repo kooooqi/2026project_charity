@@ -1,317 +1,505 @@
+/* 전깃 기본 리셋 및 폰트 설정 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root {
-    --primary-color: #FF6B6B;
-    --secondary-color: #4ECDC4;
-    --dark-color: #2C3E50;
-    --light-color: #ECF0F1;
-    --text-color: #333;
+html {
+    scroll-behavior: smooth;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+    color: #111;
+    background-color: #fff;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
+    overflow-x: hidden;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+/* 스크롤 블러(Blur) 적용을 위한 래퍼 */
+.hero-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 700px;
+    overflow: hidden;
+    will-change: filter, opacity;
+    transition: filter 0.1s linear, opacity 0.1s linear;
 }
 
-/* 네비게이션 */
+/* 메인 배경 (image_3.png 적용) */
+.bg-layer {
+    position: absolute;
+    inset: 0;
+    background-image: url('image_3.png');
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+/* 글리치 레드 노이즈 아이템 */
+.glitch-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.red-noise {
+    position: absolute;
+    background-color: #FF0000;
+    animation: glitchPulse 1.8s infinite ease-in-out alternate;
+}
+
+/* 원안 샘플 기반 정확한 노이즈 위치 및 형태 */
+.noise-1 {
+    top: 72px;
+    right: 320px;
+    width: 22px;
+    height: 22px;
+    animation-delay: 0s;
+}
+
+.noise-2 {
+    top: 90px;
+    right: 340px;
+    width: 14px;
+    height: 14px;
+    animation-delay: 0.3s;
+}
+
+.noise-3 {
+    bottom: 230px;
+    right: 380px;
+    width: 12px;
+    height: 12px;
+    animation-delay: 0.7s;
+}
+
+.noise-4 {
+    left: 0;
+    bottom: 140px;
+    width: 48px;
+    height: 22px;
+    animation-delay: 0.2s;
+}
+
+.noise-5 {
+    right: 50px;
+    bottom: 30px;
+    width: 70px;
+    height: 16px;
+    animation-delay: 0.5s;
+}
+
+@keyframes glitchPulse {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.95;
+    }
+    25% {
+        transform: translate(-3px, 2px) scale(1.05);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translate(2px, -2px) scale(0.95);
+        opacity: 1;
+    }
+    75% {
+        transform: translate(-1px, -1px) scale(1.02);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(3px, 1px) scale(1);
+        opacity: 0.95;
+    }
+}
+
+/* 네비게이션 헤더 */
 header {
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: sticky;
+    position: absolute;
     top: 0;
-    z-index: 100;
-}
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    left: 0;
     width: 100%;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: var(--primary-color);
-}
-
-.nav-links {
     display: flex;
-    list-style: none;
-    gap: 30px;
+    justify-content: center;
+    padding-top: 24px;
+    z-index: 10;
 }
 
-.nav-links a {
+.nav-container {
+    display: flex;
+    gap: 36px;
+}
+
+.nav-item {
     text-decoration: none;
-    color: var(--text-color);
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: var(--primary-color);
-}
-
-/* 히어로 섹션 */
-.hero {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    color: white;
-    text-align: center;
-    padding: 100px 20px;
-}
-
-.hero h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-}
-
-.hero p {
-    font-size: 20px;
-    margin-bottom: 30px;
-    opacity: 0.95;
-}
-
-.cta-button {
-    display: inline-block;
-    background-color: white;
-    color: var(--primary-color);
-    padding: 15px 40px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.cta-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* 섹션 공통 스타일 */
-section {
-    padding: 80px 20px;
-}
-
-section h2 {
-    font-size: 36px;
-    margin-bottom: 40px;
-    text-align: center;
-    color: var(--dark-color);
-}
-
-/* 소개 섹션 */
-.about {
-    background-color: var(--light-color);
-}
-
-.about p {
-    font-size: 18px;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.8;
-}
-
-/* 기부 섹션 */
-.donation {
-    background-color: white;
-}
-
-.donation-form {
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: var(--light-color);
-    padding: 40px;
-    border-radius: 10px;
-}
-
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: var(--dark-color);
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
     font-size: 16px;
-    font-family: inherit;
+    font-weight: 700;
+    color: #222;
+    position: relative;
+    padding-bottom: 6px;
+    transition: color 0.3s;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 5px rgba(255, 107, 107, 0.3);
-}
-
-.amount-selector {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.amount-btn {
-    padding: 12px;
-    border: 2px solid #ddd;
-    background-color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: all 0.3s ease;
-}
-
-.amount-btn:hover {
-    border-color: var(--primary-color);
-    background-color: rgba(255, 107, 107, 0.1);
-}
-
-.amount-btn.active {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-.submit-btn {
+.nav-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    padding: 15px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    font-weight: bold;
+    height: 2px;
+    background-color: #111;
+}
+
+/* 히어로 레이아웃 및 텍스트 요소들 */
+.hero-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 40px;
+    z-index: 5;
+}
+
+.cross-icon {
+    position: absolute;
+    top: 150px;
+    left: 60px;
+    font-size: 24px;
+    font-weight: 300;
+    color: #222;
+}
+
+.header-right-meta {
+    position: absolute;
+    top: 130px;
+    right: 80px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.meta-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0.05em;
+    color: #222;
+}
+
+.headline-box {
+    position: absolute;
+    top: 220px;
+    left: 60px;
+    max-width: 720px;
+}
+
+.main-title {
+    font-size: 42px;
+    font-weight: 900;
+    line-height: 1.25;
+    letter-spacing: -0.03em;
+    color: #111;
+    margin-bottom: 24px;
+    word-break: keep-all;
+}
+
+.sub-title {
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 38px;
+    word-break: keep-all;
+}
+
+/* 버튼 디자인 */
+.btn-group {
+    display: flex;
+    gap: 16px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    text-decoration: none;
 }
 
-.submit-btn:hover {
-    background-color: #FF5252;
+.btn-black {
+    background-color: #111;
+    color: #fff;
+    border: 1px solid #111;
 }
 
-/* 임팩트 섹션 */
-.impact {
-    background-color: var(--light-color);
+.btn-black:hover {
+    background-color: #333;
 }
 
-.impact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+.btn-outline {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #111;
+    border: 1px solid #111;
+}
+
+.btn-outline:hover {
+    background-color: #111;
+    color: #fff;
+}
+
+/* 이야기 섹션 */
+.story-section {
+    position: relative;
+    z-index: 10;
+    background-color: #ffffff;
+    padding: 120px 20px;
+    border-top: 1px solid #eee;
+}
+
+.story-container {
     max-width: 1000px;
     margin: 0 auto;
 }
 
-.impact-card {
-    background-color: white;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
+.story-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background-color: #f1f1f1;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 20px;
+    margin-bottom: 20px;
 }
 
-.impact-card:hover {
-    transform: translateY(-5px);
+.story-title {
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.35;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
 }
 
-.impact-number {
+.story-desc {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 60px;
+}
+
+.story-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.story-card {
+    padding: 32px;
+    background-color: #fdfdfd;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+}
+
+.card-icon {
     font-size: 32px;
-    font-weight: bold;
-    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+.story-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.story-card p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #666;
+}
+
+.account-info-banner {
+    background-color: #f8f9fa;
+    border: 1px dashed #ccc;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.account-info-banner h3 {
+    font-size: 22px;
+    font-weight: 800;
     margin-bottom: 10px;
 }
 
-.impact-text {
-    font-size: 18px;
-    color: var(--dark-color);
+.account-info-banner p {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 24px;
 }
 
-/* 연락처 섹션 */
-.contact {
-    background-color: white;
+/* 모달 팝업 */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
-.contact-info {
-    text-align: center;
-    font-size: 18px;
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
 }
 
-.contact-info p {
-    margin-bottom: 15px;
+.modal-content {
+    background-color: #fff;
+    width: 90%;
+    max-width: 480px;
+    padding: 36px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
-/* 푸터 */
-footer {
-    background-color: var(--dark-color);
-    color: white;
-    text-align: center;
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #888;
+}
+
+.modal-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.modal-sub {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 24px;
+}
+
+.bank-card {
+    background-color: #111;
+    color: #fff;
     padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 24px;
 }
 
-/* 반응형 디자인 */
+.bank-label {
+    font-size: 12px;
+    color: #aaa;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.bank-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.account-holder {
+    font-size: 13px;
+    color: #ccc;
+    margin-bottom: 14px;
+}
+
+.copy-btn {
+    width: 100%;
+    padding: 8px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.copy-btn:hover {
+    background-color: #444;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.modal-submit-btn {
+    padding: 14px;
+    background-color: #FF0000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+/* 반응형 처리 */
 @media (max-width: 768px) {
-    .nav-links {
-        gap: 15px;
+    .headline-box {
+        top: 180px;
+        left: 24px;
+        right: 24px;
     }
-
-    .hero h1 {
-        font-size: 32px;
+    .main-title {
+        font-size: 30px;
     }
-
-    .hero p {
-        font-size: 16px;
+    .header-right-meta {
+        display: none;
     }
-
-    .amount-selector {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    section h2 {
-        font-size: 28px;
-    }
-}
-
-@media (max-width: 480px) {
-    .nav-links {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .hero h1 {
-        font-size: 24px;
-    }
-
-    .amount-selector {
-        grid-template-columns: 1fr;
-    }
-
-    .impact-grid {
-        grid-template-columns: 1fr;
+    .cross-icon {
+        left: 24px;
+        top: 120px;
     }
 }
