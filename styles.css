@@ -257,41 +257,26 @@
         .modal-submit-btn { padding: 14px; background-color: #FF0000; color: #fff; border: none; border-radius: 4px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 6px; }
 
         /* 📱 모바일(휴대폰) 접속 최적화 (768px 이하) */
-        @media (max-width: 768px) {
+             @media (max-width: 768px) {
             .hero-wrapper {
-                min-height: 580px;
+                min-height: 550px !important;
             }
 
+            /* 📱 소년과 울타리를 휴대폰 화면 오른쪽 아래로 강제 이동 */
             .bg-layer {
-                background-position: right 50% bottom 50%;
-                background-size: contain;
-            }
-
-            .hero-content {
-                padding: 0 20px;
-            }
-
-            .cross-icon {
-                left: 20px;
-                top: 85px;
-                font-size: 18px;
-            }
-
-            .header-right-meta {
-                display: none;
+                background-position: right 5% bottom 5% !important;
+                background-size: 130% !important;
             }
 
             .headline-box {
-                top: 130px;
-                left: 20px;
-                right: 20px;
-                max-width: 100%;
+                top: 110px !important;
+                left: 20px !important;
+                right: 20px !important;
             }
 
             .main-title {
-                font-size: 27px;
-                line-height: 1.3;
-                margin-bottom: 16px;
+                font-size: 24px !important;
+                line-height: 1.3 !important;
             }
 
             .sub-title {
