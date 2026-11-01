@@ -1,152 +1,65 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 Project - 느리게 피어나지만 누구보다 아름다운 꽃</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Pretendard 폰트 불러오기 (원안과 동일한 깔끔한 프리미엄 산세리프) -->
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-</head>
-<body>
+// 1. 스크롤 위치에 따른 히어로 영역 실시간 Blur & Opacity (흐려짐) 효과
+const heroWrapper = document.getElementById('heroWrapper');
+const navHome = document.getElementById('navHome');
+const navStory = document.getElementById('navStory');
 
-    <!-- 스크롤 시 흐려지는 히어로 래퍼 -->
-    <div class="hero-wrapper" id="heroWrapper">
-        <!-- 배경 이미지 레이어 -->
-        <div class="bg-layer"></div>
+window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    
+    // 흐려짐 비율 계산 (0 ~ 1)
+    const progress = Math.min(scrollY / (windowHeight * 0.7), 1);
+    
+    // 최대 16px까지 흐려짐 및 투명도 조절
+    const blurValue = progress * 16;
+    const opacityValue = 1 - (progress * 0.85);
 
-        <!-- 글리치 레드 노이즈 요소를 담은 레이어 -->
-        <div class="glitch-layer">
-            <div class="red-noise noise-1"></div>
-            <div class="red-noise noise-2"></div>
-            <div class="red-noise noise-3"></div>
-            <div class="red-noise noise-4"></div>
-            <div class="red-noise noise-5"></div>
-        </div>
+    if (heroWrapper) {
+        heroWrapper.style.filter = `blur(${blurValue}px)`;
+        heroWrapper.style.opacity = opacityValue;
+    }
 
-        <!-- 네비게이션 헤더 -->
-        <header>
-            <nav class="nav-container">
-                <a href="#home" class="nav-item active" id="navHome">홈</a>
-                <a href="#story" class="nav-item" id="navStory">이야기</a>
-            </nav>
-        </header>
+    // 2. 스크롤 위치에 맞춰 상단 탭 (홈 / 이야기) 활성화 변경
+    if (scrollY > windowHeight * 0.4) {
+        navHome.classList.remove('active');
+        navStory.classList.add('active');
+    } else {
+        navStory.classList.remove('active');
+        navHome.classList.add('active');
+    }
+});
 
-        <!-- 히어로 콘텐츠 메인 -->
-        <section id="home" class="hero-content">
-            <!-- 좌측 상단 십자 표시 -->
-            <div class="cross-icon">+</div>
+// 자세히 알아보기 클릭 시 이야기 섹션으로 부드럽게 이동
+function scrollToStory() {
+    const storySection = document.getElementById('story');
+    if (storySection) {
+        storySection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
 
-            <!-- 우측 상단 텍스트 및 가이드 요소 -->
-            <div class="header-right-meta">
-                <div class="meta-crosshair">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="1.2">
-                        <line x1="12" y1="2" x2="12" y2="22"></line>
-                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                        <circle cx="12" cy="12" r="3" stroke="#222" fill="none"/>
-                    </svg>
-                </div>
-                <div class="meta-text">
-                    TOGETHER<br>
-                    FOR A BRIGHTER<br>
-                    TOMORROW
-                </div>
-            </div>
+// 모달(후원 팝업) 제어
+function openDonateModal() {
+    document.getElementById('donateModal').classList.add('active');
+}
 
-            <!-- 메인 헤드라인 및 버튼 영역 -->
-            <div class="headline-box">
-                <h1 class="main-title">
-                    느리게 피어나지만<br>
-                    누구보다 아름다운 꽃,<br>
-                    그 아이들의 든든한 울타리가 되어주세요
-                </h1>
-                
-                <p class="sub-title">
-                    우리의 따뜻한 후원이 아이들이 자신의 속도로<br>
-                    아름답게 피어날 수 있는 내일을 만듭니다
-                </p>
+function closeDonateModal() {
+    document.getElementById('donateModal').classList.remove('active');
+}
 
-                <div class="btn-group">
-                    <button class="btn btn-black" onclick="openDonateModal()">후원하기 &rarr;</button>
-                    <button class="btn btn-outline" onclick="scrollToStory()">자세히 알아보기 &rarr;</button>
-                </div>
-            </div>
-        </section>
-    </div>
+// 계좌번호 복사 기능
+function copyAccount() {
+    const accNumber = document.getElementById('accNumber').innerText;
+    navigator.clipboard.writeText(accNumber).then(() => {
+        alert('후원 계좌번호(' + accNumber + ')가 복사되었습니다.');
+    }).catch(() => {
+        alert('계좌번호 복사에 실패했습니다.');
+    });
+}
 
-    <!-- 스크롤 시 나타나는 상세 이야기 섹션 -->
-    <section id="story" class="story-section">
-        <div class="story-container">
-            <span class="story-badge">2026 Project Story</span>
-            <h2 class="story-title">21번 염색체의 특별한 선물,<br>다운증후군 아이들과 함께 걸어가는 길</h2>
-            
-            <p class="story-desc">
-                다운증후군을 가진 아이들은 남들보다 조금 천천히 세상을 배웁니다. 
-                비록 걸음마는 느릴지라도, 아이들이 품고 있는 순수한 미소와 따뜻한 마음은 세상 그 무엇보다 아름답게 빛납니다.
-            </p>
-            
-            <div class="story-grid">
-                <div class="story-card">
-                    <div class="card-icon">🌱</div>
-                    <h3>느리지만 확실한 성장</h3>
-                    <p>적절한 언어 치료와 조기 교육 프로그램이 있다면 아이들은 스스로 서립하고 자신의 꿈을 향해 나아갈 수 있습니다.</p>
-                </div>
-                <div class="story-card">
-                    <div class="card-icon">🎨</div>
-                    <h3>편견 없는 재능 발굴</h3>
-                    <p>미술, 음악, 체육 등 아이들이 가진 독창적인 감각과 예술적 재능을 피워낼 수 있는 전폭적인 환경을 지원합니다.</p>
-                </div>
-                <div class="story-card">
-                    <div class="card-icon">🤝</div>
-                    <h3>따뜻한 울타리와 연대</h3>
-                    <p>아이들과 가족들이 사회의 따뜻한 시선 속에서 더불어 살아갈 수 있도록 지속 가능한 커뮤니티 케어를 제공합니다.</p>
-                </div>
-            </div>
-
-            <!-- 후원 계좌 직접 안내 하단 박스 -->
-            <div class="account-info-banner">
-                <h3>아이들의 내일에 마음을 더해주세요</h3>
-                <p>후원금은 전액 다운증후군 아동의 언어·발달 치료비 및 재능 개발 프로그램 지원에 사용됩니다.</p>
-                <button class="btn btn-black" onclick="openDonateModal()">지금 후원 참여하기 &rarr;</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- 후원 모달 (팝업창) -->
-    <div class="modal-overlay" id="donateModal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closeDonateModal()">&times;</button>
-            <h2 class="modal-title">아이들의 든든한 울타리가 되어주세요</h2>
-            <p class="modal-sub">소중한 후원금은 다운증후군 아동의 치료 및 교육 지원에 전액 투입됩니다.</p>
-            
-            <div class="bank-card">
-                <span class="bank-label">지정 후원 계좌</span>
-                <div class="bank-details">
-                    <span class="bank-name">신한은행</span>
-                    <span class="account-num" id="accNumber">110-2026-567890</span>
-                </div>
-                <div class="account-holder">예금주: (사) 2026 희망울타리</div>
-                <button class="copy-btn" onclick="copyAccount()">계좌번호 복사하기</button>
-            </div>
-
-            <form class="modal-form" onsubmit="handleDonateSubmit(event)">
-                <div class="form-group">
-                    <label for="donorName">후원자 성함</label>
-                    <input type="text" id="donorName" placeholder="홍길동" required>
-                </div>
-                <div class="form-group">
-                    <label for="donorPhone">연락처</label>
-                    <input type="tel" id="donorPhone" placeholder="010-0000-0000" required>
-                </div>
-                <div class="form-group">
-                    <label for="donateAmount">후원 신청 금액</label>
-                    <input type="text" id="donateAmount" placeholder="예: 50,000" required>
-                </div>
-                <button type="submit" class="modal-submit-btn">후원 내역 등록하기</button>
-            </form>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
+// 후원 폼 제출 핸들러
+function handleDonateSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById('donorName').value;
+    alert(`감사합니다, ${name}님!\n따뜻한 나눔 신청이 완료되었습니다.`);
+    closeDonateModal();
+}
