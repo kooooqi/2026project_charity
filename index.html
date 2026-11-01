@@ -3,113 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026 Project - 함께하는 기부</title>
+    <title>2026 Project - 느리게 피어나지만 누구보다 아름다운 꽃</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Pretendard 폰트 불러오기 (원안과 동일한 깔끔한 프리미엄 산세리프) -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="container">
-                <div class="logo">2026 Project</div>
-                <ul class="nav-links">
-                    <li><a href="#about">소개</a></li>
-                    <li><a href="#donation">기부</a></li>
-                    <li><a href="#impact">임팩트</a></li>
-                    <li><a href="#contact">연락처</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
 
-    <main>
-        <!-- 히어로 섹션 -->
-        <section class="hero">
-            <div class="container">
-                <h1>함께 만드는 더 나은 내일</h1>
-                <p>당신의 작은 나눔이 큰 변화를 만듭니다</p>
-                <a href="#donation" class="cta-button">지금 기부하기</a>
-            </div>
-        </section>
+    <!-- 스크롤 시 흐려지는 히어로 래퍼 -->
+    <div class="hero-wrapper" id="heroWrapper">
+        <!-- 배경 이미지 레이어 -->
+        <div class="bg-layer"></div>
 
-        <!-- 소개 섹션 -->
-        <section id="about" class="about">
-            <div class="container">
-                <h2>우리의 미션</h2>
-                <p>2026 Project는 사회의 어려운 이웃들을 돕고, 지속 가능한 발전을 추구하는 기관입니다. 
-                   여러분의 기부금은 교육, 보건, 환경 보호 등 다양한 분야에 사용됩니다.</p>
-            </div>
-        </section>
-
-        <!-- 기부 섹션 -->
-        <section id="donation" class="donation">
-            <div class="container">
-                <h2>기부하기</h2>
-                <form class="donation-form" id="donationForm">
-                    <div class="form-group">
-                        <label for="name">이름</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">이메일</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="amount">기부 금액 (원)</label>
-                        <div class="amount-selector">
-                            <button type="button" class="amount-btn" data-amount="10000">10,000원</button>
-                            <button type="button" class="amount-btn" data-amount="50000">50,000원</button>
-                            <button type="button" class="amount-btn" data-amount="100000">100,000원</button>
-                            <input type="number" id="amount" name="amount" placeholder="직접 입력" min="1000">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">메시지 (선택사항)</label>
-                        <textarea id="message" name="message" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">기부 신청</button>
-                </form>
-            </div>
-        </section>
-
-        <!-- 임팩트 섹션 -->
-        <section id="impact" class="impact">
-            <div class="container">
-                <h2>우리의 임팩트</h2>
-                <div class="impact-grid">
-                    <div class="impact-card">
-                        <div class="impact-number">5,000+</div>
-                        <div class="impact-text">도움을 받은 사람들</div>
-                    </div>
-                    <div class="impact-card">
-                        <div class="impact-number">50+</div>
-                        <div class="impact-text">진행 중인 프로젝트</div>
-                    </div>
-                    <div class="impact-card">
-                        <div class="impact-number">1억+</div>
-                        <div class="impact-text">기부금 누적액</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 연락처 섹션 -->
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2>연락처</h2>
-                <div class="contact-info">
-                    <p>📧 이메일: info@2026project.org</p>
-                    <p>📱 전화: 02-1234-5678</p>
-                    <p>📍 주소: 서울시 강남구 테헤란로 123</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Project. 모든 권리 보유.</p>
+        <!-- 글리치 레드 노이즈 요소를 담은 레이어 -->
+        <div class="glitch-layer">
+            <div class="red-noise noise-1"></div>
+            <div class="red-noise noise-2"></div>
+            <div class="red-noise noise-3"></div>
+            <div class="red-noise noise-4"></div>
+            <div class="red-noise noise-5"></div>
         </div>
-    </footer>
+
+        <!-- 네비게이션 헤더 -->
+        <header>
+            <nav class="nav-container">
+                <a href="#home" class="nav-item active" id="navHome">홈</a>
+                <a href="#story" class="nav-item" id="navStory">이야기</a>
+            </nav>
+        </header>
+
+        <!-- 히어로 콘텐츠 메인 -->
+        <section id="home" class="hero-content">
+            <!-- 좌측 상단 십자 표시 -->
+            <div class="cross-icon">+</div>
+
+            <!-- 우측 상단 텍스트 및 가이드 요소 -->
+            <div class="header-right-meta">
+                <div class="meta-crosshair">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="1.2">
+                        <line x1="12" y1="2" x2="12" y2="22"></line>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <circle cx="12" cy="12" r="3" stroke="#222" fill="none"/>
+                    </svg>
+                </div>
+                <div class="meta-text">
+                    TOGETHER<br>
+                    FOR A BRIGHTER<br>
+                    TOMORROW
+                </div>
+            </div>
+
+            <!-- 메인 헤드라인 및 버튼 영역 -->
+            <div class="headline-box">
+                <h1 class="main-title">
+                    느리게 피어나지만<br>
+                    누구보다 아름다운 꽃,<br>
+                    그 아이들의 든든한 울타리가 되어주세요
+                </h1>
+                
+                <p class="sub-title">
+                    우리의 따뜻한 후원이 아이들이 자신의 속도로<br>
+                    아름답게 피어날 수 있는 내일을 만듭니다
+                </p>
+
+                <div class="btn-group">
+                    <button class="btn btn-black" onclick="openDonateModal()">후원하기 &rarr;</button>
+                    <button class="btn btn-outline" onclick="scrollToStory()">자세히 알아보기 &rarr;</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- 스크롤 시 나타나는 상세 이야기 섹션 -->
+    <section id="story" class="story-section">
+        <div class="story-container">
+            <span class="story-badge">2026 Project Story</span>
+            <h2 class="story-title">21번 염색체의 특별한 선물,<br>다운증후군 아이들과 함께 걸어가는 길</h2>
+            
+            <p class="story-desc">
+                다운증후군을 가진 아이들은 남들보다 조금 천천히 세상을 배웁니다. 
+                비록 걸음마는 느릴지라도, 아이들이 품고 있는 순수한 미소와 따뜻한 마음은 세상 그 무엇보다 아름답게 빛납니다.
+            </p>
+            
+            <div class="story-grid">
+                <div class="story-card">
+                    <div class="card-icon">🌱</div>
+                    <h3>느리지만 확실한 성장</h3>
+                    <p>적절한 언어 치료와 조기 교육 프로그램이 있다면 아이들은 스스로 서립하고 자신의 꿈을 향해 나아갈 수 있습니다.</p>
+                </div>
+                <div class="story-card">
+                    <div class="card-icon">🎨</div>
+                    <h3>편견 없는 재능 발굴</h3>
+                    <p>미술, 음악, 체육 등 아이들이 가진 독창적인 감각과 예술적 재능을 피워낼 수 있는 전폭적인 환경을 지원합니다.</p>
+                </div>
+                <div class="story-card">
+                    <div class="card-icon">🤝</div>
+                    <h3>따뜻한 울타리와 연대</h3>
+                    <p>아이들과 가족들이 사회의 따뜻한 시선 속에서 더불어 살아갈 수 있도록 지속 가능한 커뮤니티 케어를 제공합니다.</p>
+                </div>
+            </div>
+
+            <!-- 후원 계좌 직접 안내 하단 박스 -->
+            <div class="account-info-banner">
+                <h3>아이들의 내일에 마음을 더해주세요</h3>
+                <p>후원금은 전액 다운증후군 아동의 언어·발달 치료비 및 재능 개발 프로그램 지원에 사용됩니다.</p>
+                <button class="btn btn-black" onclick="openDonateModal()">지금 후원 참여하기 &rarr;</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 후원 모달 (팝업창) -->
+    <div class="modal-overlay" id="donateModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeDonateModal()">&times;</button>
+            <h2 class="modal-title">아이들의 든든한 울타리가 되어주세요</h2>
+            <p class="modal-sub">소중한 후원금은 다운증후군 아동의 치료 및 교육 지원에 전액 투입됩니다.</p>
+            
+            <div class="bank-card">
+                <span class="bank-label">지정 후원 계좌</span>
+                <div class="bank-details">
+                    <span class="bank-name">신한은행</span>
+                    <span class="account-num" id="accNumber">110-2026-567890</span>
+                </div>
+                <div class="account-holder">예금주: (사) 2026 희망울타리</div>
+                <button class="copy-btn" onclick="copyAccount()">계좌번호 복사하기</button>
+            </div>
+
+            <form class="modal-form" onsubmit="handleDonateSubmit(event)">
+                <div class="form-group">
+                    <label for="donorName">후원자 성함</label>
+                    <input type="text" id="donorName" placeholder="홍길동" required>
+                </div>
+                <div class="form-group">
+                    <label for="donorPhone">연락처</label>
+                    <input type="tel" id="donorPhone" placeholder="010-0000-0000" required>
+                </div>
+                <div class="form-group">
+                    <label for="donateAmount">후원 신청 금액</label>
+                    <input type="text" id="donateAmount" placeholder="예: 50,000" required>
+                </div>
+                <button type="submit" class="modal-submit-btn">후원 내역 등록하기</button>
+            </form>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
