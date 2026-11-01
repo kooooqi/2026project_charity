@@ -1,4 +1,4 @@
-// 1. 스크롤 위치에 따른 히어로 영역 실시간 Blur & Opacity (흐려짐) 효과
+// 스크롤 위치에 따른 히어로 영역 Smooth Blur & Fade 효과
 const heroWrapper = document.getElementById('heroWrapper');
 const navHome = document.getElementById('navHome');
 const navStory = document.getElementById('navStory');
@@ -7,20 +7,26 @@ window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
     const windowHeight = window.innerHeight;
     
-    // 흐려짐 비율 계산 (0 ~ 1)
-    const progress = Math.min(scrollY / (windowHeight * 0.7), 1);
+    // 80% (0.8) 지점부터 흐려짐 애니메이션 시작
+    const startThreshold = windowHeight * 0.8;
     
-    // 최대 16px까지 흐려짐 및 투명도 조절
-    const blurValue = progress * 16;
-    const opacityValue = 1 - (progress * 0.85);
+    let progress = 0;
+    if (scrollY > startThreshold) {
+        // 80% 이후부터 140% 구간까지 아주 부드럽게 0 -> 1 변화
+        progress = Math.min((scrollY - startThreshold) / (windowHeight * 0.6), 1);
+    }
+    
+    // 블러 강도를 은은하게 최대 8px로 조절하고 투명도 자연스럽게 감쇄
+    const blurValue = progress * 8;
+    const opacityValue = 1 - (progress * 0.7);
 
     if (heroWrapper) {
         heroWrapper.style.filter = `blur(${blurValue}px)`;
         heroWrapper.style.opacity = opacityValue;
     }
 
-    // 2. 스크롤 위치에 맞춰 상단 탭 (홈 / 이야기) 활성화 변경
-    if (scrollY > windowHeight * 0.4) {
+    // 상단 탭 (홈 / 이야기) 스크롤에 맞춘 활성화 전환
+    if (scrollY > windowHeight * 0.5) {
         navHome.classList.remove('active');
         navStory.classList.add('active');
     } else {
@@ -29,7 +35,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// 자세히 알아보기 클릭 시 이야기 섹션으로 부드럽게 이동
+// 자세히 알아보기 클릭 시 이야기 섹션 이동
 function scrollToStory() {
     const storySection = document.getElementById('story');
     if (storySection) {
@@ -37,7 +43,7 @@ function scrollToStory() {
     }
 }
 
-// 모달(후원 팝업) 제어
+// 후원 모달(팝업) 제어
 function openDonateModal() {
     document.getElementById('donateModal').classList.add('active');
 }
@@ -60,6 +66,4 @@ function copyAccount() {
 function handleDonateSubmit(e) {
     e.preventDefault();
     const name = document.getElementById('donorName').value;
-    alert(`감사합니다, ${name}님!\n따뜻한 나눔 신청이 완료되었습니다.`);
-    closeDonateModal();
-}
+    alert(`감사
