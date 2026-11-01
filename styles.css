@@ -1,505 +1,530 @@
-/* 전깃 기본 리셋 및 폰트 설정 */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Project - 느리게 피어나지만 누구보다 아름다운 꽃</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-html {
-    scroll-behavior: smooth;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
-    color: #111;
-    background-color: #fff;
-}
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            color: #111;
+            background-color: #fff;
+        }
 
-body {
-    overflow-x: hidden;
-}
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
 
-/* 스크롤 블러(Blur) 적용을 위한 래퍼 */
-.hero-wrapper {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-    min-height: 700px;
-    overflow: hidden;
-    will-change: filter, opacity;
-    transition: filter 0.1s linear, opacity 0.1s linear;
-}
+        /* 65% 스크롤 시 부드럽게 흐려지는 메인 히어로 영역 */
+        .hero-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            min-height: 650px;
+            overflow: hidden;
+            transform: translateZ(0);
+            will-change: filter, opacity;
+            transition: filter 0.15s linear, opacity 0.15s linear;
+        }
 
-/* 메인 배경 (image_3.png 적용) */
-.bg-layer {
-    position: absolute;
-    inset: 0;
-    background-image: url('image_3.png');
-    background-size: cover;
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    z-index: 1;
-}
+        .bg-layer {
+            position: absolute;
+            inset: 0;
+            background-image: url('image_3.png');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            z-index: 1;
+        }
 
-/* 글리치 레드 노이즈 아이템 */
-.glitch-layer {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-}
+        /* 거칠게 프레임이 떨어지는 글리치 노이즈 레이어 */
+        .glitch-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
 
-.red-noise {
-    position: absolute;
-    background-color: #FF0000;
-    animation: glitchPulse 1.8s infinite ease-in-out alternate;
-}
+        .red-noise {
+            position: absolute;
+            background-color: #FF0000;
+            animation: steppedGlitch 1.2s infinite steps(2, jump-none) alternate;
+        }
 
-/* 원안 샘플 기반 정확한 노이즈 위치 및 형태 */
-.noise-1 {
-    top: 72px;
-    right: 320px;
-    width: 22px;
-    height: 22px;
-    animation-delay: 0s;
-}
+        /* PC 기준 노이즈 위치 */
+        .noise-1 { top: 72px; right: 320px; width: 22px; height: 22px; animation-delay: 0s; }
+        .noise-2 { top: 90px; right: 340px; width: 14px; height: 14px; animation-delay: 0.15s; }
+        .noise-3 { bottom: 230px; right: 380px; width: 12px; height: 12px; animation-delay: 0.4s; }
+        .noise-4 { left: 0; bottom: 140px; width: 48px; height: 22px; animation-delay: 0.1s; }
+        .noise-5 { right: 50px; bottom: 30px; width: 70px; height: 16px; animation-delay: 0.3s; }
 
-.noise-2 {
-    top: 90px;
-    right: 340px;
-    width: 14px;
-    height: 14px;
-    animation-delay: 0.3s;
-}
+        @keyframes steppedGlitch {
+            0% { transform: translate(0, 0); opacity: 0.95; clip-path: inset(0 0 0 0); }
+            20% { transform: translate(-4px, 3px) scaleX(1.1); opacity: 0.4; clip-path: inset(10% 0 30% 0); }
+            40% { transform: translate(5px, -2px) scaleY(0.9); opacity: 1; clip-path: inset(40% 0 10% 0); }
+            60% { transform: translate(-2px, -4px); opacity: 0.2; clip-path: inset(20% 0 50% 0); }
+            80% { transform: translate(6px, 1px) scale(1.05); opacity: 0.9; clip-path: inset(0 0 0 0); }
+            100% { transform: translate(-1px, 3px); opacity: 0.7; clip-path: inset(5% 0 15% 0); }
+        }
 
-.noise-3 {
-    bottom: 230px;
-    right: 380px;
-    width: 12px;
-    height: 12px;
-    animation-delay: 0.7s;
-}
+        /* 헤더 네비게이션 */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding-top: 24px;
+            z-index: 10;
+        }
 
-.noise-4 {
-    left: 0;
-    bottom: 140px;
-    width: 48px;
-    height: 22px;
-    animation-delay: 0.2s;
-}
+        .nav-container {
+            display: flex;
+            gap: 36px;
+        }
 
-.noise-5 {
-    right: 50px;
-    bottom: 30px;
-    width: 70px;
-    height: 16px;
-    animation-delay: 0.5s;
-}
+        .nav-item {
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 700;
+            color: #222;
+            position: relative;
+            padding-bottom: 6px;
+            transition: color 0.3s;
+        }
 
-@keyframes glitchPulse {
-    0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 0.95;
-    }
-    25% {
-        transform: translate(-3px, 2px) scale(1.05);
-        opacity: 0.7;
-    }
-    50% {
-        transform: translate(2px, -2px) scale(0.95);
-        opacity: 1;
-    }
-    75% {
-        transform: translate(-1px, -1px) scale(1.02);
-        opacity: 0.8;
-    }
-    100% {
-        transform: translate(3px, 1px) scale(1);
-        opacity: 0.95;
-    }
-}
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #111;
+        }
 
-/* 네비게이션 헤더 */
-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding-top: 24px;
-    z-index: 10;
-}
+        /* 히어로 타이포그래피 정렬 */
+        .hero-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 40px;
+            z-index: 5;
+        }
 
-.nav-container {
-    display: flex;
-    gap: 36px;
-}
+        .cross-icon {
+            position: absolute;
+            top: 150px;
+            left: 60px;
+            font-size: 24px;
+            font-weight: 300;
+            color: #222;
+        }
 
-.nav-item {
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 700;
-    color: #222;
-    position: relative;
-    padding-bottom: 6px;
-    transition: color 0.3s;
-}
+        .header-right-meta {
+            position: absolute;
+            top: 130px;
+            right: 80px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-.nav-item.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #111;
-}
+        .meta-text {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: 0.05em;
+            color: #222;
+        }
 
-/* 히어로 레이아웃 및 텍스트 요소들 */
-.hero-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 40px;
-    z-index: 5;
-}
+        .headline-box {
+            position: absolute;
+            top: 220px;
+            left: 60px;
+            max-width: 720px;
+        }
 
-.cross-icon {
-    position: absolute;
-    top: 150px;
-    left: 60px;
-    font-size: 24px;
-    font-weight: 300;
-    color: #222;
-}
+        .main-title {
+            font-size: 42px;
+            font-weight: 900;
+            line-height: 1.25;
+            letter-spacing: -0.03em;
+            color: #111;
+            margin-bottom: 24px;
+            word-break: keep-all;
+        }
 
-.header-right-meta {
-    position: absolute;
-    top: 130px;
-    right: 80px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
+        .sub-title {
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 38px;
+            word-break: keep-all;
+        }
 
-.meta-text {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 1.25;
-    letter-spacing: 0.05em;
-    color: #222;
-}
+        .btn-group {
+            display: flex;
+            gap: 16px;
+        }
 
-.headline-box {
-    position: absolute;
-    top: 220px;
-    left: 60px;
-    max-width: 720px;
-}
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.25s ease;
+            text-decoration: none;
+        }
 
-.main-title {
-    font-size: 42px;
-    font-weight: 900;
-    line-height: 1.25;
-    letter-spacing: -0.03em;
-    color: #111;
-    margin-bottom: 24px;
-    word-break: keep-all;
-}
+        .btn-black { background-color: #111; color: #fff; border: 1px solid #111; }
+        .btn-black:hover { background-color: #333; }
+        .btn-outline { background-color: rgba(255, 255, 255, 0.8); color: #111; border: 1px solid #111; }
+        .btn-outline:hover { background-color: #111; color: #fff; }
 
-.sub-title {
-    font-size: 17px;
-    font-weight: 500;
-    line-height: 1.6;
-    color: #666;
-    margin-bottom: 38px;
-    word-break: keep-all;
-}
+        /* 하단 이야기 섹션 */
+        .story-section {
+            position: relative;
+            z-index: 10;
+            background-color: #ffffff;
+            padding: 100px 20px;
+            border-top: 1px solid #eee;
+        }
 
-/* 버튼 디자인 */
-.btn-group {
-    display: flex;
-    gap: 16px;
-}
+        .story-container { max-width: 1000px; margin: 0 auto; }
+        .story-badge { display: inline-block; padding: 6px 14px; background-color: #f1f1f1; font-size: 13px; font-weight: 700; border-radius: 20px; margin-bottom: 20px; }
+        .story-title { font-size: 34px; font-weight: 800; line-height: 1.35; margin-bottom: 20px; letter-spacing: -0.02em; word-break: keep-all; }
+        .story-desc { font-size: 17px; line-height: 1.7; color: #555; margin-bottom: 60px; word-break: keep-all; }
+        .story-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-bottom: 60px; }
+        .story-card { padding: 32px; background-color: #fdfdfd; border: 1px solid #eaeaea; border-radius: 8px; }
+        .card-icon { font-size: 32px; margin-bottom: 16px; }
+        .story-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+        .story-card p { font-size: 15px; line-height: 1.6; color: #666; word-break: keep-all; }
 
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 14px 28px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    border-radius: 2px;
-    transition: all 0.25s ease;
-    text-decoration: none;
-}
+        .account-info-banner { background-color: #f8f9fa; border: 1px dashed #ccc; padding: 40px 20px; border-radius: 8px; text-align: center; }
+        .account-info-banner h3 { font-size: 22px; font-weight: 800; margin-bottom: 10px; word-break: keep-all; }
+        .account-info-banner p { font-size: 15px; color: #666; margin-bottom: 24px; word-break: keep-all; }
 
-.btn-black {
-    background-color: #111;
-    color: #fff;
-    border: 1px solid #111;
-}
+        /* 모달 팝업 */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
 
-.btn-black:hover {
-    background-color: #333;
-}
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-content { background-color: #fff; width: 90%; max-width: 480px; padding: 36px 24px; border-radius: 8px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 28px; cursor: pointer; color: #888; }
+        .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; word-break: keep-all; }
+        .modal-sub { font-size: 13px; color: #666; margin-bottom: 20px; word-break: keep-all; }
+        .bank-card { background-color: #111; color: #fff; padding: 18px; border-radius: 6px; margin-bottom: 20px; }
+        .bank-label { font-size: 11px; color: #aaa; display: block; margin-bottom: 4px; }
+        .bank-details { display: flex; justify-content: space-between; align-items: center; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .account-holder { font-size: 12px; color: #ccc; margin-bottom: 12px; }
+        .copy-btn { width: 100%; padding: 10px; background-color: #333; color: #fff; border: none; border-radius: 4px; font-size: 13px; font-weight: 600; cursor: pointer; }
+        .copy-btn:hover { background-color: #444; }
+        .modal-form { display: flex; flex-direction: column; gap: 14px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+        .form-group label { font-size: 13px; font-weight: 700; color: #333; }
+        .form-group input { padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        .modal-submit-btn { padding: 14px; background-color: #FF0000; color: #fff; border: none; border-radius: 4px; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 6px; }
 
-.btn-outline {
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #111;
-    border: 1px solid #111;
-}
+        /* 📱 모바일(휴대폰) 접속 최적화 (768px 이하) */
+        @media (max-width: 768px) {
+            .hero-wrapper {
+                min-height: 580px;
+            }
 
-.btn-outline:hover {
-    background-color: #111;
-    color: #fff;
-}
+            .bg-layer {
+                background-position: right 25% bottom 5%;
+                background-size: contain;
+            }
 
-/* 이야기 섹션 */
-.story-section {
-    position: relative;
-    z-index: 10;
-    background-color: #ffffff;
-    padding: 120px 20px;
-    border-top: 1px solid #eee;
-}
+            .hero-content {
+                padding: 0 20px;
+            }
 
-.story-container {
-    max-width: 1000px;
-    margin: 0 auto;
-}
+            .cross-icon {
+                left: 20px;
+                top: 85px;
+                font-size: 18px;
+            }
 
-.story-badge {
-    display: inline-block;
-    padding: 6px 14px;
-    background-color: #f1f1f1;
-    font-size: 13px;
-    font-weight: 700;
-    border-radius: 20px;
-    margin-bottom: 20px;
-}
+            .header-right-meta {
+                display: none;
+            }
 
-.story-title {
-    font-size: 34px;
-    font-weight: 800;
-    line-height: 1.35;
-    margin-bottom: 20px;
-    letter-spacing: -0.02em;
-}
+            .headline-box {
+                top: 130px;
+                left: 20px;
+                right: 20px;
+                max-width: 100%;
+            }
 
-.story-desc {
-    font-size: 17px;
-    line-height: 1.7;
-    color: #555;
-    margin-bottom: 60px;
-}
+            .main-title {
+                font-size: 27px;
+                line-height: 1.3;
+                margin-bottom: 16px;
+            }
 
-.story-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-bottom: 60px;
-}
+            .sub-title {
+                font-size: 14px;
+                line-height: 1.5;
+                margin-bottom: 28px;
+            }
 
-.story-card {
-    padding: 32px;
-    background-color: #fdfdfd;
-    border: 1px solid #eaeaea;
-    border-radius: 8px;
-}
+            .btn-group {
+                flex-direction: column;
+                gap: 10px;
+            }
 
-.card-icon {
-    font-size: 32px;
-    margin-bottom: 16px;
-}
+            .btn {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 14px;
+            }
 
-.story-card h3 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
+            /* 모달 및 스토리 최적화 */
+            .story-section {
+                padding: 60px 16px;
+            }
 
-.story-card p {
-    font-size: 15px;
-    line-height: 1.6;
-    color: #666;
-}
+            .story-title {
+                font-size: 24px;
+            }
 
-.account-info-banner {
-    background-color: #f8f9fa;
-    border: 1px dashed #ccc;
-    padding: 40px;
-    border-radius: 8px;
-    text-align: center;
-}
+            .story-desc {
+                font-size: 15px;
+                margin-bottom: 40px;
+            }
 
-.account-info-banner h3 {
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 10px;
-}
+            /* 글리치 위치 모바일 축소 */
+            .noise-1 { top: 50px; right: 20px; width: 14px; height: 14px; }
+            .noise-2 { top: 70px; right: 40px; width: 10px; height: 10px; }
+            .noise-3 { bottom: 180px; right: 20px; width: 10px; height: 10px; }
+            .noise-4 { bottom: 100px; width: 32px; height: 14px; }
+            .noise-5 { right: 20px; bottom: 15px; width: 45px; height: 12px; }
+        }
+    </style>
+</head>
+<body>
 
-.account-info-banner p {
-    font-size: 15px;
-    color: #666;
-    margin-bottom: 24px;
-}
+    <div class="hero-wrapper" id="heroWrapper">
+        <div class="bg-layer"></div>
+        <div class="glitch-layer">
+            <div class="red-noise noise-1"></div>
+            <div class="red-noise noise-2"></div>
+            <div class="red-noise noise-3"></div>
+            <div class="red-noise noise-4"></div>
+            <div class="red-noise noise-5"></div>
+        </div>
 
-/* 모달 팝업 */
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
+        <header>
+            <nav class="nav-container">
+                <a href="#home" class="nav-item active" id="navHome">홈</a>
+                <a href="#story" class="nav-item" id="navStory">이야기</a>
+            </nav>
+        </header>
 
-.modal-overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-}
+        <section id="home" class="hero-content">
+            <div class="cross-icon">+</div>
+            <div class="header-right-meta">
+                <div class="meta-crosshair">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="1.2">
+                        <line x1="12" y1="2" x2="12" y2="22"></line>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <circle cx="12" cy="12" r="3" stroke="#222" fill="none"/>
+                    </svg>
+                </div>
+                <div class="meta-text">
+                    TOGETHER<br>
+                    FOR A BRIGHTER<br>
+                    TOMORROW
+                </div>
+            </div>
 
-.modal-content {
-    background-color: #fff;
-    width: 90%;
-    max-width: 480px;
-    padding: 36px;
-    border-radius: 8px;
-    position: relative;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-}
+            <div class="headline-box">
+                <h1 class="main-title">
+                    느리게 피어나지만<br>
+                    누구보다 아름다운 꽃,<br>
+                    그 아이들의 든든한 울타리가 되어주세요
+                </h1>
+                
+                <p class="sub-title">
+                    우리의 따뜻한 후원이 아이들이 자신의 속도로<br>
+                    아름답게 피어날 수 있는 내일을 만듭니다
+                </p>
 
-.modal-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    font-size: 28px;
-    cursor: pointer;
-    color: #888;
-}
+                <div class="btn-group">
+                    <button class="btn btn-black" onclick="openDonateModal()">후원하기 &rarr;</button>
+                    <button class="btn btn-outline" onclick="scrollToStory()">자세히 알아보기 &rarr;</button>
+                </div>
+            </div>
+        </section>
+    </div>
 
-.modal-title {
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 8px;
-}
+    <section id="story" class="story-section">
+        <div class="story-container">
+            <span class="story-badge">2026 Project Story</span>
+            <h2 class="story-title">21번 염색체의 특별한 선물,<br>다운증후군 아이들과 함께 걸어가는 길</h2>
+            
+            <p class="story-desc">
+                다운증후군을 가진 아이들은 남들보다 조금 천천히 세상을 배웁니다. 
+                비록 걸음마는 느릴지라도, 아이들이 품고 있는 순수한 미소와 따뜻한 마음은 세상 그 무엇보다 아름답게 빛납니다.
+            </p>
+            
+            <div class="story-grid">
+                <div class="story-card">
+                    <div class="card-icon">🌱</div>
+                    <h3>느리지만 확실한 성장</h3>
+                    <p>적절한 언어 치료와 조기 교육 프로그램이 있다면 아이들은 스스로 서립하고 자신의 꿈을 향해 나아갈 수 있습니다.</p>
+                </div>
+                <div class="story-card">
+                    <div class="card-icon">🎨</div>
+                    <h3>편견 없는 재능 발굴</h3>
+                    <p>미술, 음악, 체육 등 아이들이 가진 독창적인 감각과 예술적 재능을 피워낼 수 있는 전폭적인 환경을 지원합니다.</p>
+                </div>
+                <div class="story-card">
+                    <div class="card-icon">🤝</div>
+                    <h3>따뜻한 울타리와 연대</h3>
+                    <p>아이들과 가족들이 사회의 따뜻한 시선 속에서 더불어 살아갈 수 있도록 지속 가능한 커뮤니티 케어를 제공합니다.</p>
+                </div>
+            </div>
 
-.modal-sub {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 24px;
-}
+            <div class="account-info-banner">
+                <h3>아이들의 내일에 마음을 더해주세요</h3>
+                <p>후원금은 전액 다운증후군 아동의 언어·발달 치료비 및 재능 개발 프로그램 지원에 사용됩니다.</p>
+                <button class="btn btn-black" onclick="openDonateModal()">지금 후원 참여하기 &rarr;</button>
+            </div>
+        </div>
+    </section>
 
-.bank-card {
-    background-color: #111;
-    color: #fff;
-    padding: 20px;
-    border-radius: 6px;
-    margin-bottom: 24px;
-}
+    <div class="modal-overlay" id="donateModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeDonateModal()">&times;</button>
+            <h2 class="modal-title">아이들의 든든한 울타리가 되어주세요</h2>
+            <p class="modal-sub">소중한 후원금은 다운증후군 아동의 치료 및 교육 지원에 전액 투입됩니다.</p>
+            
+            <div class="bank-card">
+                <span class="bank-label">지정 후원 계좌</span>
+                <div class="bank-details">
+                    <span class="bank-name">신한은행</span>
+                    <span class="account-num" id="accNumber">110-2026-567890</span>
+                </div>
+                <div class="account-holder">예금주: (사) 2026 희망울타리</div>
+                <button class="copy-btn" onclick="copyAccount()">계좌번호 복사하기</button>
+            </div>
 
-.bank-label {
-    font-size: 12px;
-    color: #aaa;
-    display: block;
-    margin-bottom: 6px;
-}
+            <form class="modal-form" onsubmit="handleDonateSubmit(event)">
+                <div class="form-group">
+                    <label for="donorName">후원자 성함</label>
+                    <input type="text" id="donorName" placeholder="홍길동" required>
+                </div>
+                <div class="form-group">
+                    <label for="donorPhone">연락처</label>
+                    <input type="tel" id="donorPhone" placeholder="010-0000-0000" required>
+                </div>
+                <div class="form-group">
+                    <label for="donateAmount">후원 신청 금액</label>
+                    <input type="text" id="donateAmount" placeholder="예: 50,000" required>
+                </div>
+                <button type="submit" class="modal-submit-btn">후원 내역 등록하기</button>
+            </form>
+        </div>
+    </div>
 
-.bank-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 4px;
-}
+    <script>
+        const heroWrapper = document.getElementById('heroWrapper');
+        const navHome = document.getElementById('navHome');
+        const navStory = document.getElementById('navStory');
 
-.account-holder {
-    font-size: 13px;
-    color: #ccc;
-    margin-bottom: 14px;
-}
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            // 스크롤 약 65% (0.65) 지점부터 블러/페이드 효과 시작
+            const startThreshold = windowHeight * 0.65;
+            
+            let progress = 0;
+            if (scrollY > startThreshold) {
+                progress = Math.min((scrollY - startThreshold) / (windowHeight * 0.5), 1);
+            }
+            
+            const blurValue = progress * 12;
+            const opacityValue = 1 - (progress * 0.85);
 
-.copy-btn {
-    width: 100%;
-    padding: 8px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-}
+            if (heroWrapper) {
+                heroWrapper.style.filter = `blur(${blurValue}px)`;
+                heroWrapper.style.opacity = opacityValue;
+            }
 
-.copy-btn:hover {
-    background-color: #444;
-}
+            // 상단 네비게이션 탭 (홈 / 이야기) 활성화 전환
+            if (scrollY > windowHeight * 0.45) {
+                navHome.classList.remove('active');
+                navStory.classList.add('active');
+            } else {
+                navStory.classList.remove('active');
+                navHome.classList.add('active');
+            }
+        });
 
-.modal-form {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
+        function scrollToStory() {
+            const storySection = document.getElementById('story');
+            if (storySection) {
+                storySection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
 
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    text-align: left;
-}
+        function openDonateModal() {
+            document.getElementById('donateModal').classList.add('active');
+        }
 
-.form-group label {
-    font-size: 13px;
-    font-weight: 700;
-    color: #333;
-}
+        function closeDonateModal() {
+            document.getElementById('donateModal').classList.remove('active');
+        }
 
-.form-group input {
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-}
+        function copyAccount() {
+            const accNumber = document.getElementById('accNumber').innerText;
+            navigator.clipboard.writeText(accNumber).then(() => {
+                alert('후원 계좌번호(' + accNumber + ')가 복사되었습니다.');
+            }).catch(() => {
+                alert('계좌번호 복사에 실패했습니다.');
+            });
+        }
 
-.modal-submit-btn {
-    padding: 14px;
-    background-color: #FF0000;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 8px;
-}
-
-/* 반응형 처리 */
-@media (max-width: 768px) {
-    .headline-box {
-        top: 180px;
-        left: 24px;
-        right: 24px;
-    }
-    .main-title {
-        font-size: 30px;
-    }
-    .header-right-meta {
-        display: none;
-    }
-    .cross-icon {
-        left: 24px;
-        top: 120px;
-    }
-}
+        function handleDonateSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('donorName').value;
+            alert(`감사합니다, ${name}님!\n따뜻한 나눔 신청이 완료되었습니다.`);
+            closeDonateModal();
+        }
+    </script>
+</body>
+</html>
